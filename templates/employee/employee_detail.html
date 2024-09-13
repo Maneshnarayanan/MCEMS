@@ -1,0 +1,16 @@
+<h1>Employee Details: {{ employee.name }}</h1>
+    
+    <p><strong>Employee ID:</strong> {{ employee.employee_id }}</p>
+    <p><strong>Department:</strong> {{ employee.department.name }}</p>
+    <p><strong>Role:</strong> {{ employee.role.name }}</p>
+    <p><strong>Joining Date:</strong> {{ employee.joining_date }}</p>
+    <p><strong>Salary:</strong> {{ employee.salary }}</p>
+    
+    <a href="{% url 'update_employee' employee.pk %}">Edit</a> | 
+    <a href="{% url 'employee_list' %}">Back to List</a>
+    
+    <h2>Attendance</h2>
+    <a href="{% url 'record_attendance' %}">Clock In</a>
+    
+    <h2>Leave Requests</h2>
+    <a href="{% url 'leave_request' %}">Request Leave</a>

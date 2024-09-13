@@ -1,9 +1,0 @@
-<h2>{% if company %}Edit Company{% else %}Add Company{% endif %}</h2>
-
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
-
-<a href="{% url 'company_list' %}">Back to Companies</a>

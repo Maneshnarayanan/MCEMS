@@ -1,0 +1,10 @@
+<h1>Record Attendance</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="employee_id">Employee ID:</label>
+        <input type="text" name="employee_id" required>
+        <button type="submit">Clock In</button>
+    </form>
+    
+    <a href="{% url 'employee_list' %}">Back to Employee List</a>
