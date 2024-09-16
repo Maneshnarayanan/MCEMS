@@ -6,11 +6,11 @@ from .models import Attendance, LeaveRequest
 
 def employee_list(request):
     employees = Employee.objects.all()
-    return render(request, 'employee_list.html', {'employees': employees})
+    return render(request, 'employee/employee_list.html', {'employees': employees})
 
 def employee_detail(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
-    return render(request, 'employee_detail.html', {'employee': employee})
+    return render(request, 'employee/employee_detail.html', {'employee': employee})
 
 def create_employee(request):
     if request.method == 'POST':
@@ -20,7 +20,7 @@ def create_employee(request):
             return redirect('employee_list')
     else:
         form = EmployeeForm()
-    return render(request, 'employee_form.html', {'form': form})
+    return render(request, 'employee/employee_form.html', {'form': form})
 
 def update_employee(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
@@ -31,14 +31,14 @@ def update_employee(request, pk):
             return redirect('employee_list')
     else:
         form = EmployeeForm(instance=employee)
-    return render(request, 'employee_form.html', {'form': form})
+    return render(request, 'employee/employee_form.html', {'form': form})
 
 def delete_employee(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
     if request.method == 'POST':
         employee.delete()
         return redirect('employee_list')
-    return render(request, 'employee_confirm_delete.html', {'employee': employee})
+    return render(request, 'employee/employee_confirm_delete.html', {'employee': employee})
 
 
 

@@ -4,7 +4,8 @@ from companies.models import Company
 
 class User(AbstractUser):
     # Linking user to a company
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="employees")
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True, related_name='users_in_company')
+
     
     # User role choices
     ADMIN = 'ADMIN'

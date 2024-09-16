@@ -22,7 +22,7 @@ class Employee(models.Model):
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, related_name='employees')
     joining_date = models.DateField()
     salary = models.DecimalField(max_digits=10, decimal_places=2)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='employees')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='employees_in_company')
 
     def __str__(self):
         return self.name
