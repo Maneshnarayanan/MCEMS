@@ -1,0 +1,7 @@
+<h1>Roles in {{ company.name }}</h1>
+<ul>
+    {% for role in roles %}
+    <li>{{ role.name }} <a href="{% url 'update_role' company.id role.id %}">Edit</a> <a href="{% url 'delete_role' company.id role.id %}">Delete</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'create_role' company.id %}">Add Role</a>
