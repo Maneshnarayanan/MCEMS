@@ -4,6 +4,14 @@ from .models import Employee, Attendance, LeaveRequest
 from .forms import EmployeeForm
 from django.utils import timezone
 from django.contrib import messages
+from rest_framework import viewsets
+from .serializers import EmployeeSerializer
+
+#API
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
 
 @login_required
 def employee_list(request):

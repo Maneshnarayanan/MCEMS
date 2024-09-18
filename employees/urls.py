@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [
     path('', views.employee_list, name='employee_list'),
     path('employee/<int:pk>/', views.employee_detail, name='employee_detail'),
@@ -12,3 +14,4 @@ urlpatterns = [
     path('leave_request/', views.leave_request_view, name='leave_request'),
     path('leave_request_details/', views.leave_request_details_view, name='leave_request_details'),
 ]
+
