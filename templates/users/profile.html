@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="card mb-3 shadow-sm border-primary rounded">
+        <div class="card-header bg-primary text-white">
+            <h2>Employee Profile</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Employee ID:</strong> {{ employee.employee_id }}</p>
+            <p><strong>Name:</strong> {{ employee.user.first_name }} {{ employee.user.last_name }}</p>
+            <p><strong>Email:</strong> {{ employee.user.email }}</p>
+            <p><strong>Company:</strong> {{ employee.company.name }}</p>
+            <p><strong>Department:</strong> {{ employee.department.name }}</p>
+            <p><strong>Role:</strong> {{ employee.role.name }}</p>
+            <p><strong>Joining Date:</strong> {{ employee.joining_date }}</p>
+            <p><strong>Salary:</strong> {{ employee.salary }}</p>
+             <!-- Attendance Details (If Exists) -->
+             <h4 class="mt-4">Attendance Details</h4>
+             {% if employee.attendance.exists %}
+                 <table class="table table-striped">
+                     <thead>
+                         <tr>
+                             <th>Clock In</th>
+                             <th>Clock Out</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         {% for attendance in employee.attendance.all %}
+                         <tr>
+                             <td>{{ attendance.clock_in }}</td>
+                             <td>
+                                 {% if attendance.clock_out %}
+                                     {{ attendance.clock_out }}
+                                 {% else %}
+                                     Currently Clocked In
+                                 {% endif %}
+                             </td>
+                         </tr>
+                         {% endfor %}
+                     </tbody>
+                 </table>
+             {% else %}
+                 <p>No attendance records available.</p>
+             {% endif %}
+            <!-- Buttons -->
+            <div class="mt-4 d-flex justify-content-between">
+                <a href="{% url 'update_employee' employee.id %}" class="btn btn-warning me-2">Edit Profile</a>
+              
+                {% if not active_attendance %}
+                  <form method="POST" action="{% url 'record_attendance' %}" class="d-inline-flex">  {% csrf_token %}
+                    <input type="hidden" name="employee_id" value="{{ employee.id }}" />
+                    <button type="submit" class="btn btn-success me-2">Clock In</button>
+                  </form>
+                {% else %}
+                  <a href="{% url 'clock_out_attendance' active_attendance.id %}" class="btn btn-danger me-2"> Clock Out </a>
+                {% endif %}
+              
+                <a href="{% url 'leave_request' %}" class="btn btn-danger">Leave Request</a>
+              </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+ 
