@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import logout
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from employees.models import Employee,Attendance
 
-
+from employees.forms import EmployeeForm2
 
 def user_login(request):
     if request.method == 'POST':
@@ -20,7 +21,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 @login_required
@@ -39,5 +40,26 @@ def profile_view(request):
 
 def home(request):
     return render(request, 'index.html')
+
+
+@login_required
+def edit_profile_view(request):
+    # Fetch the employee object for the logged-in user
+    employee = get_object_or_404(Employee, user=request.user)
+
+    if request.method == 'POST':
+        form = EmployeeForm2(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully!')
+            return redirect('employee-profile')  # Redirect to the profile view after saving
+    else:
+        form = EmployeeForm2(instance=employee)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'users/edit_profile.html', context)
 
 

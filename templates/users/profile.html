@@ -43,7 +43,7 @@
              {% endif %}
             <!-- Buttons -->
             <div class="mt-4 d-flex justify-content-between">
-                <a href="{% url 'update_employee' employee.id %}" class="btn btn-warning me-2">Edit Profile</a>
+                <a href="{% url 'edit_profile' %}" class="btn btn-warning me-2">Edit Profile</a>
               
                 {% if not active_attendance %}
                   <form method="POST" action="{% url 'record_attendance' %}" class="d-inline-flex">  {% csrf_token %}

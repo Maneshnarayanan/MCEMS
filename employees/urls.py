@@ -9,5 +9,6 @@ urlpatterns = [
     path('employee/delete/<int:pk>/', views.delete_employee, name='delete_employee'),
     path('attendance/clock_in/', views.record_attendance, name='record_attendance'),
     path('attendance/clock_out/<int:pk>/', views.clock_out_attendance, name='clock_out_attendance'),
-    path('leave_request/', views.leave_request, name='leave_request'),
+    path('leave_request/', views.leave_request_view, name='leave_request'),
+    path('leave_request_details/', views.leave_request_details_view, name='leave_request_details'),
 ]

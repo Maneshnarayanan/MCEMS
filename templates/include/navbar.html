@@ -58,11 +58,12 @@
                             {% if user.is_authenticated %}
                                 <a href="{% url 'home' %}" class="nav-item nav-link ">Home</a>
                                 <a href="{% url 'employee-profile' %}" class="nav-item nav-link">My Profile</a>
-                                <a href="{% url 'update_employee' employee.id %}" class="nav-item nav-link">Edit Profile</a>
+                                <a href="{% url 'edit_profile' %}" class="nav-item nav-link">Edit Profile</a>
+                                <a href="{% url 'leave_request_details' %}" class="nav-item nav-link">Leave Request Status</a>
               
                                 <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
                             {% else %}
-                                <a href="" class="nav-item nav-link active">Home</a>
+                                <a href="{% url 'home' %}" class="nav-item nav-link">Home</a>
                                 <a href="" class="nav-item nav-link">About</a>
                                 <a href="" class="nav-item nav-link">Services</a>
                                 <a href="" class="nav-item nav-link">Blog</a>   

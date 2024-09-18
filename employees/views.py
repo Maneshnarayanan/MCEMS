@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Employee, Attendance, LeaveRequest
 from .forms import EmployeeForm
 from django.utils import timezone
+from django.contrib import messages
 
 @login_required
 def employee_list(request):
@@ -76,13 +77,43 @@ def clock_out_attendance(request, pk):
         attendance.save()
     return redirect('employee-profile')
 
+
 @login_required
-def leave_request(request):
+def leave_request_view(request):
+    employee = get_object_or_404(Employee, user=request.user)  
+
     if request.method == 'POST':
-        employee_id = request.POST['employee_id']
-        start_date = request.POST['start_date']
-        end_date = request.POST['end_date']
-        reason = request.POST['reason']
-        employee = get_object_or_404(Employee, employee_id=employee_id)
-        LeaveRequest.objects.create(employee=employee, start_date=start_date, end_date=end_date, reason=reason)
-        return redirect('employee_detail', pk=employee.pk)
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        reason = request.POST.get('reason')
+
+        leave_request = LeaveRequest.objects.create(
+            employee=employee,
+            start_date=start_date,
+            end_date=end_date,
+            reason=reason
+        )
+        
+    
+        messages.success(request, 'Leave request submitted successfully.')
+        return redirect('employee-profile')  
+    context = {
+        'employee': employee
+    }
+    return render(request, 'employee/leave_request.html',context)
+
+
+@login_required
+def leave_request_details_view(request):
+    # Fetch the logged-in employee
+    employee = get_object_or_404(Employee, user=request.user)
+    
+    # Fetch all leave requests related to this employee
+    leave_requests = LeaveRequest.objects.filter(employee=employee).order_by('-start_date')
+
+    context = {
+        'employee': employee,
+        'leave_requests': leave_requests
+    }
+    
+    return render(request, 'employee/leave_request_details.html', context)

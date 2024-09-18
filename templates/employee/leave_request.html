@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-5">
+    <h1>Leave Request</h1>
+    <form method="POST" class="row g-3">
+        {% csrf_token %}
+
+        <div class="col-md-6 mb-3">
+            <label for="employee_id" class="form-label">Employee ID:</label>
+            <input type="text" class="form-control" name="employee_id" value="{{ employee.id }}" readonly />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="start_date" class="form-label">Start Date:</label>
+            <input type="date" class="form-control" name="start_date" required />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="end_date" class="form-label">End Date:</label>
+            <input type="date" class="form-control" name="end_date" required />
+        </div>
+
+        <div class="col-12 mb-3">
+            <label for="reason" class="form-label">Reason for Leave:</label>
+            <textarea name="reason" class="form-control" required></textarea>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
